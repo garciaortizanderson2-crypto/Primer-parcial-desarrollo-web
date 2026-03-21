@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechNova — Tienda de Tecnología</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <!-- Fragmento: header cargado dinámicamente -->
+  <div id="app-header-slot"></div>
+
+  <div class="app-layout">
+
+    <!-- Fragmento: sidebar cargado dinámicamente -->
+    <div id="app-sidebar-slot"></div>
+
+    <main class="app-main">
+
+      <!-- ── HERO ────────────────────────────────────── -->
+      <section class="hero" id="inicio">
+        <h1>La tecnología del mañana.</h1>
+        <p>
+          Laptops, smartphones y accesorios premium.
+          Garantía extendida y envío en 24 horas a toda Colombia.
+        </p>
+        <div class="hero-ctas">
+          <a href="#productos" class="btn-primary">Ver productos</a>
+          <a href="#categorias" class="btn-secondary">Explorar categorías</a>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><strong>500+</strong><small>Productos</small></div>
+          <div class="stat"><strong>24h</strong><small>Entrega</small></div>
+          <div class="stat"><strong>98%</strong><small>Satisfacción</small></div>
+          <div class="stat"><strong>30d</strong><small>Devolución</small></div>
+        </div>
+      </section>
+
+      <!-- ── FILTRO DE CATEGORÍAS ─────────────────────── -->
+      <div class="filter-bar" id="categorias">
+        <label>Categoría:</label>
+        <button class="cat-chip active" data-cat="todos">Todos</button>
+        <button class="cat-chip" data-cat="Laptops">Laptops</button>
+        <button class="cat-chip" data-cat="Smartphones">Smartphones</button>
+        <button class="cat-chip" data-cat="Audio">Audio</button>
+        <button class="cat-chip" data-cat="Monitores">Monitores</button>
+        <button class="cat-chip" data-cat="Tablets">Tablets</button>
+        <button class="cat-chip" data-cat="Periféricos">Periféricos</button>
+      </div>
+
+      <!-- ── PRODUCTOS CON <template> ─────────────────── -->
+      <section class="products-section" id="productos">
+        <div class="section-header">
+          <div>
+            <h2>Productos destacados</h2>
+            <p>Renderizados con &lt;template&gt; de HTML</p>
+          </div>
+          <span class="section-tag">Template API</span>
+        </div>
+        <div class="products-grid" id="productos-template">
+          <p class="loading-msg">Cargando productos...</p>
+        </div>
+      </section>
+
+      <!-- ── CATÁLOGO CON FETCH + WEB COMPONENT ────────── -->
+      <section class="products-section">
+        <div class="section-header">
+          <div>
+            <h2>Catálogo completo</h2>
+            <p>
+              Cargado con fetch() desde products.json ·
+              Renderizado con &lt;product-card&gt;
+            </p>
+          </div>
+          <span class="section-tag">Web Component</span>
+        </div>
+        <div class="products-grid" id="productos-fetch">
+          <p class="loading-msg">Cargando catálogo...</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Fragmento: footer cargado dinámicamente -->
+  <div id="app-footer-slot"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       tarjeta de producto
+  ════════════════════════════════════════════════════ -->
+  <template id="producto-template">
+    <div class="product-card">
+      <div class="product-img-area">
+        <span class="product-badge"></span>
+        <strong class="product-img-name"></strong>
+        <small class="product-img-cat"></small>
+      </div>
+      <div class="product-body">
+        <span class="product-cat"></span>
+        <h3 class="product-name"></h3>
+        <p class="product-desc"></p>
+        <div class="product-footer">
+          <span class="product-price"></span>
+          <button class="btn-add-cart">+ Agregar</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+
+  <!-- Scripts -->
+  <script src="js/product-card.js"></script>
+  <script src="js/fragments-loader.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

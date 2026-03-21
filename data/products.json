@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Laptop TechNova X1",
+    "precio": 3499900,
+    "descripcion": "Intel Core i7 13va gen, 16GB RAM DDR5, 512GB NVMe SSD.",
+    "categoria": "Laptops",
+    "badge": "Nuevo"
+  },
+  {
+    "id": 2,
+    "nombre": "Smartphone TN-S23",
+    "precio": 2199900,
+    "descripcion": "Pantalla AMOLED 6.5\", cámara triple 108MP, batería 5000mAh.",
+    "categoria": "Smartphones",
+    "badge": "Top ventas"
+  },
+  {
+    "id": 3,
+    "nombre": "Auriculares TN-Pro",
+    "precio": 459900,
+    "descripcion": "Cancelación de ruido activa, 40h de batería, Bluetooth 5.3.",
+    "categoria": "Audio",
+    "badge": "Oferta"
+  },
+  {
+    "id": 4,
+    "nombre": "Monitor TN-4K 27\"",
+    "precio": 1899900,
+    "descripcion": "Panel IPS 4K 144Hz, HDR400, compatible con G-Sync.",
+    "categoria": "Monitores",
+    "badge": "Gaming"
+  },
+  {
+    "id": 5,
+    "nombre": "Tablet TN-Tab 11",
+    "precio": 1299900,
+    "descripcion": "Pantalla OLED 11\", chip octa-core, 128GB de almacenamiento.",
+    "categoria": "Tablets",
+    "badge": "Nuevo"
+  },
+  {
+    "id": 6,
+    "nombre": "Mouse TN-Precision",
+    "precio": 219900,
+    "descripcion": "25600 DPI, 7 botones programables, peso ajustable.",
+    "categoria": "Periféricos",
+    "badge": ""
+  }
+]

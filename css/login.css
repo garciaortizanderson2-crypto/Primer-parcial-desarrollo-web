@@ -1,0 +1,105 @@
+/* =====================================================
+   css/login.css — TechNova
+   Estilos de la pantalla de inicio de sesión.
+   ===================================================== */
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 12px;
+  background: #fff;
+}
+
+.login-box {
+  border: 2px solid #000;
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.login-logo {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.login-box h1   { font-size: 18px; margin-bottom: 4px; }
+.login-box > p  { font-size: 12px; color: #555; margin-bottom: 18px; }
+
+/* ── Campos del formulario ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+
+.form-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.form-input {
+  border: 1px solid #000;
+  padding: 6px 8px;
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  font-family: sans-serif;
+}
+
+.form-input:focus { outline: 2px solid #000; }
+
+.form-error {
+  font-size: 11px;
+  color: #c00;
+  min-height: 14px;
+}
+
+/* ── Alerta global ── */
+.form-alert {
+  font-size: 12px;
+  padding: 6px 8px;
+  border: 1px solid #000;
+  margin-bottom: 8px;
+  display: none;
+}
+
+.form-alert.show { display: block; }
+
+/* ── Botón de ingreso ── */
+.btn-login {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #000;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+}
+
+.btn-login:hover    { background: #333; }
+.btn-login:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Hint de credenciales de demo ── */
+.login-hint {
+  font-size: 11px;
+  color: #555;
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid #ccc;
+}
+
+.login-hint code {
+  font-size: 11px;
+  border: 1px solid #ccc;
+  padding: 0 4px;
+  background: #f5f5f5;
+}
