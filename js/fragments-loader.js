@@ -115,8 +115,8 @@ async function cargarFragmento(ruta, idSlot) {
  */
 async function cargarFragmentos() {
   await Promise.all([
-    cargarFragmento('components/header.html',  'app-header-slot'),
+    cargarFragmento('components/header.html', 'app-header-slot'),
     cargarFragmento('components/sidebar.html', 'app-sidebar-slot'),
-    cargarFragmento('components/footer.html',  'app-footer-slot')
+    cargarFragmento('components/footer.html', 'app-footer-slot')
   ]);
 }
