@@ -1,68 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TechNova — Iniciar sesión</title>
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/login.css" />
   <script src="js/modo.js"></script>
-
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/login.css" />
 </head>
+
 <body class="login-page">
-   <button class="login-tema-btn" id="btn-tema-login">🌙 Modo oscuro</button>
-  <div class="login-box">
 
-    <span class="login-logo">TechNova</span>
+  <button class="btn-tema-login" id="btn-tema-login">🔥 Modo oscuro</button>
 
-    <h1>Iniciar sesión</h1>
-    <p>Ingresa tus credenciales para continuar</p>
-
-    <form id="login-form" novalidate>
-
-      <div class="form-group">
-        <label class="form-label" for="input-usuario">Usuario</label>
-        <input
-          type="text"
-          id="input-usuario"
-          class="form-input"
-          placeholder="Tu nombre de usuario"
-          autocomplete="username"
-        />
-        <span class="form-error" id="error-usuario"></span>
+  <!-- LADO IZQUIERDO -->
+  <div class="login-left">
+    <div class="left-content">
+      <div class="left-logo">TechNova</div>
+      <h1 class="left-title">
+        Bienvenido<br />a la tienda del<br /><span>futuro.</span>
+      </h1>
+      <p class="left-desc">
+        Accede a cientos de productos tecnológicos premium.
+        Laptops, smartphones y accesorios con garantía extendida
+        y envío en 24 horas a toda Colombia.
+      </p>
+      <div class="left-features">
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-text">
+            <strong>Envío en 24 horas</strong>
+            <span>A todo Colombia sin costo adicional</span>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🛡️</div>
+          <div class="feature-text">
+            <strong>Garantía extendida</strong>
+            <span>30 días de devolución sin preguntas</span>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔥</div>
+          <div class="feature-text">
+            <strong>500+ productos</strong>
+            <span>Catálogo actualizado cada semana</span>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="deco-circle deco-1"></div>
+    <div class="deco-circle deco-2"></div>
+    <div class="deco-circle deco-3"></div>
+  </div>
 
-      <div class="form-group">
-        <label class="form-label" for="input-contrasena">Contraseña</label>
-        <input
-          type="password"
-          id="input-contrasena"
-          class="form-input"
-          placeholder="Tu contraseña"
-          autocomplete="current-password"
-        />
-        <span class="form-error" id="error-contrasena"></span>
-      </div>
+  <!-- LADO DERECHO -->
+  <div class="login-right">
+    <div class="login-card">
+      <h2 class="card-title">Iniciar sesión</h2>
+      <p class="card-sub">Ingresa tus credenciales para continuar</p>
 
-      <div class="form-alert" id="login-alert" role="alert" aria-live="polite"></div>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="input-usuario">Usuario</label>
+          <input type="text" id="input-usuario" class="form-input" placeholder="Tu nombre de usuario"
+            autocomplete="username" />
+          <span class="form-error" id="error-usuario"></span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="input-contrasena">Contraseña</label>
+          <input type="password" id="input-contrasena" class="form-input" placeholder="Tu contraseña"
+            autocomplete="current-password" />
+          <span class="form-error" id="error-contrasena"></span>
+        </div>
+        <div class="form-alert" id="login-alert" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn-login" id="btn-ingresar">
+          Ingresar →
+        </button>
+      </form>
 
-      <button type="submit" class="btn-login" id="btn-ingresar">
-        Ingresar
-      </button>
-
-    </form>
-
-    <p class="login-hint">
-      Demo: usuario <code>admin</code> / contraseña <code>technova2024</code>
-    </p>
-
+      <p class="login-hint">
+        Demo: usuario <code>admin</code> / contraseña <code>technova2024</code>
+      </p>
+    </div>
   </div>
 
   <script src="js/login.js"></script>
-  <script>
-    vincularToggleTema('btn-tema-login');
-  </script>
+  <script>vincularToggleTema('btn-tema-login');</script>
 </body>
+
 </html>
