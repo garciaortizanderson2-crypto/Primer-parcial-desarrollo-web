@@ -15,6 +15,8 @@ function vincularToggleTema(idBoton) {
     var activo = document.documentElement.classList.toggle('dark-mode');
     localStorage.setItem('tn-tema', activo ? 'dark' : 'light');
     this.textContent = activo ? '☀️ Modo claro' : '🌙 Modo oscuro';
+    // ✅ Sincronizar las tarjetas al cambiar tema
+    if (typeof sincronizarTemaCards === 'function') sincronizarTemaCards();
   });
 }
 

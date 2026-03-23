@@ -1,7 +1,7 @@
 class ProductCard extends HTMLElement {
 
   static get observedAttributes() {
-    return ['nombre', 'precio', 'descripcion', 'categoria', 'badge'];
+    return ['nombre', 'precio', 'descripcion', 'categoria', 'badge', 'imagen'];
   }
 
   constructor() {
@@ -9,7 +9,7 @@ class ProductCard extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
-  connectedCallback()        { this.render(); }
+  connectedCallback() { this.render(); }
   attributeChangedCallback() { this.render(); }
 
   formatearPrecio(valor) {
@@ -23,11 +23,12 @@ class ProductCard extends HTMLElement {
   }
 
   render() {
-    const nombre      = this.getAttribute('nombre')      || 'Producto';
-    const precio      = this.getAttribute('precio')      || '0';
+    const nombre = this.getAttribute('nombre') || 'Producto';
+    const precio = this.getAttribute('precio') || '0';
     const descripcion = this.getAttribute('descripcion') || '';
-    const categoria   = this.getAttribute('categoria')   || '';
-    const badge       = this.getAttribute('badge')       || '';
+    const categoria = this.getAttribute('categoria') || '';
+    const badge = this.getAttribute('badge') || '';
+    const imagen = this.getAttribute('imagen') || '';
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -173,11 +174,14 @@ class ProductCard extends HTMLElement {
 
       <div class="card">
         <div class="card-top">
-          ${badge ? `<span class="badge-lbl">${badge}</span>` : ''}
-          <strong>${nombre}</strong>
-          <small>${categoria}</small>
-          <span class="wc-label">Web Component</span>
-        </div>
+  ${badge ? `<span class="badge-lbl">${badge}</span>` : ''}
+  ${imagen
+        ? `<img src="${imagen}" alt="${nombre}" style="width:100%;height:90px;object-fit:contain;padding:4px;">`
+        : `<strong>${nombre}</strong>`
+      }
+  <small>${categoria}</small>
+  <span class="wc-label">Web Component</span>
+</div>
         <div class="card-body">
           <span class="card-cat">${categoria}</span>
           <h3 class="card-name">${nombre}</h3>
