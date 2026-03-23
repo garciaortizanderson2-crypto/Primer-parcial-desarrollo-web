@@ -1,26 +1,12 @@
-/**
- * js/main.js — TechNova
- *
- * Lógica principal de la aplicación:
- *   1. Verificar que hay sesión activa.
- *   2. Cargar fragmentos (header, sidebar, footer).
- *   3. Renderizar productos destacados con <template>.
- *   4. Cargar catálogo desde products.json con fetch + Web Component.
- *   5. Filtro de categorías.
- */
 
-/* ── 1. Verificar sesión ──────────────────────────────── */
 function verificarSesion() {
   if (sessionStorage.getItem('tn-sesion') !== 'activa') {
     window.location.href = 'login.html';
   }
 }
 
-/* ── 2. Post-carga de fragmentos ─────────────────────── */
-
-/** Vincula el botón de cerrar sesión del header. */
 function vincularLogout() {
-  const btn = document.getElementById('btn-logout');
+  var btn = document.getElementById('btn-logout');
   if (btn) {
     btn.addEventListener('click', function() {
       sessionStorage.removeItem('tn-sesion');
@@ -30,26 +16,35 @@ function vincularLogout() {
   }
 }
 
-/** Muestra el nombre del usuario en el sidebar. */
+function vincularToggleTema() {
+  var btn = document.getElementById('btn-tema');
+  if (!btn) return;
+
+  var esDark = document.documentElement.classList.contains('dark-mode');
+  btn.textContent = esDark ? '☀️ Modo claro' : '🌙 Modo oscuro';
+
+  btn.addEventListener('click', function() {
+    var activo = document.documentElement.classList.toggle('dark-mode');
+    localStorage.setItem('tn-tema', activo ? 'dark' : 'light');
+    this.textContent = activo ? '☀️ Modo claro' : '🌙 Modo oscuro';
+    sincronizarTemaCards(); 
+  });
+}
+
+
 function mostrarUsuario() {
   const el = document.getElementById('sidebar-username');
   if (el) el.textContent = sessionStorage.getItem('tn-usuario') || 'admin';
 }
 
-/* ── 3. Renderizado con <template> ───────────────────── */
-
-/** Datos para los productos destacados (usados con <template>). */
 const PRODUCTOS_DESTACADOS = [
   { nombre: 'Laptop TechNova X1',  precio: 3499900, descripcion: 'Intel Core i7 13va gen, 16GB RAM DDR5, 512GB NVMe SSD.', categoria: 'Laptops',     badge: 'Nuevo'      },
   { nombre: 'Smartphone TN-S23',   precio: 2199900, descripcion: 'Pantalla AMOLED 6.5", cámara triple 108MP, 5000mAh.',    categoria: 'Smartphones', badge: 'Top ventas' },
   { nombre: 'Auriculares TN-Pro',  precio: 459900,  descripcion: 'Cancelación de ruido activa, 40h batería, Bluetooth 5.3.',categoria: 'Audio',       badge: 'Oferta'     }
 ];
 
-/**
- * Formatea un número como precio en pesos colombianos.
- * @param {number} valor
- * @returns {string}
- */
+
+ 
 function formatearPrecio(valor) {
   return new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -58,25 +53,119 @@ function formatearPrecio(valor) {
   }).format(valor);
 }
 
-/** Contador de artículos en el carrito. */
 let contadorCarrito = 0;
+var itemsCarrito = []; 
 
-/**
- * Agrega un producto al carrito y actualiza el contador en el header.
- * @param {string} nombre - Nombre del producto agregado.
- */
 function agregarAlCarrito(nombre) {
+  var existente = itemsCarrito.find(function(i) { return i.nombre === nombre; });
+  if (existente) {
+    existente.cantidad++;
+  } else {
+    var prod = catalogoCompleto.find(function(p) { return p.nombre === nombre; })
+            || PRODUCTOS_DESTACADOS.find(function(p) { return p.nombre === nombre; });
+    itemsCarrito.push({ nombre: nombre, precio: prod ? prod.precio : 0, cantidad: 1 });
+  }
   contadorCarrito++;
-  const el = document.getElementById('cart-count');
-  if (el) el.textContent = contadorCarrito;
+  var el = document.getElementById('cart-count');
+  if (el) {el.textContent = contadorCarrito;
+   el.classList.add('visible'); 
+  }
+  actualizarPanelCarrito();
 }
 
-/**
- * Clona el <template id="producto-template"> por cada producto
- * y lo agrega al contenedor #productos-template.
- *
- * @param {Array} lista - Lista de objetos producto.
- */
+function actualizarPanelCarrito() {
+  var contenedor = document.getElementById('carrito-items');
+  var totalEl    = document.getElementById('carrito-total');
+  if (!contenedor) return;
+
+  if (!itemsCarrito.length) {
+    contenedor.innerHTML = '<p class="carrito-vacio">El carrito está vacío.</p>';
+    if (totalEl) totalEl.textContent = '$ 0';
+    return;
+  }
+
+  var total = 0;
+  contenedor.innerHTML = '';
+
+  itemsCarrito.forEach(function(item) {
+    total += item.precio * item.cantidad;
+    var div = document.createElement('div');
+    div.className = 'carrito-item';
+    div.innerHTML =
+      '<div class="carrito-item-info">' +
+        '<p class="carrito-item-nombre">' + item.nombre + '</p>' +
+        '<p class="carrito-item-precio">' + formatearPrecio(item.precio) + ' x ' + item.cantidad + '</p>' +
+      '</div>' +
+      '<div class="carrito-item-controles">' +
+        '<button onclick="cambiarCantidad(\'' + item.nombre + '\',-1)">−</button>' +
+        '<span class="carrito-item-cantidad">' + item.cantidad + '</span>' +
+        '<button onclick="cambiarCantidad(\'' + item.nombre + '\',1)">+</button>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+
+  if (totalEl) totalEl.textContent = formatearPrecio(total);
+}
+
+function cambiarCantidad(nombre, delta) {
+  var item = itemsCarrito.find(function(i) { return i.nombre === nombre; });
+  if (!item) return;
+  item.cantidad += delta;
+  if (item.cantidad <= 0) {
+    itemsCarrito = itemsCarrito.filter(function(i) { return i.nombre !== nombre; });
+  }
+  contadorCarrito = itemsCarrito.reduce(function(a, i) { return a + i.cantidad; }, 0);
+ var el = document.getElementById('cart-count');
+if (el) {
+  el.textContent = contadorCarrito;
+  if (contadorCarrito > 0) {
+    el.classList.add('visible');
+  } else {
+    el.classList.remove('visible');
+  }
+}
+  actualizarPanelCarrito();
+}
+
+function vincularCarrito() {
+  var btnAbrir  = document.getElementById('btn-carrito');
+  var btnCerrar = document.getElementById('btn-cerrar-carrito');
+  var panel     = document.getElementById('carrito-panel');
+  var overlay   = document.getElementById('carrito-overlay');
+
+  /* Crear el span del contador dinámicamente */
+  if (btnAbrir && !document.getElementById('cart-count')) {
+    var badge = document.createElement('span');
+    badge.id = 'cart-count';
+    badge.textContent = '0';
+    btnAbrir.appendChild(badge);
+  }
+
+  if (btnAbrir) btnAbrir.addEventListener('click', function() {
+    panel.classList.add('abierto');
+    overlay.classList.add('visible');
+  });
+
+  if (btnCerrar) btnCerrar.addEventListener('click', cerrarCarrito);
+  if (overlay)   overlay.addEventListener('click', cerrarCarrito);
+}
+
+
+function cerrarCarrito() {
+  var panel   = document.getElementById('carrito-panel');
+  var overlay = document.getElementById('carrito-overlay');
+  if (panel)   panel.classList.remove('abierto');
+  if (overlay) overlay.classList.remove('visible');
+}
+function sincronizarTemaCards() {
+  var esDark = document.documentElement.classList.contains('dark-mode');
+  document.querySelectorAll('product-card').forEach(function(card) {
+    card.classList.toggle('dark', esDark);
+  });
+}
+
+ 
+ 
 function renderizarConTemplate(lista) {
   const plantilla  = document.getElementById('producto-template');
   const contenedor = document.getElementById('productos-template');
@@ -112,15 +201,10 @@ function renderizarConTemplate(lista) {
   });
 }
 
-/* ── 4. Fetch + Web Component ────────────────────────── */
 
-/** Catálogo completo cargado desde JSON. */
 let catalogoCompleto = [];
 
-/**
- * Carga products.json con fetch y renderiza con <product-card>.
- * Si fetch falla (file://), usa los productos destacados como respaldo.
- */
+
 async function cargarProductosConFetch() {
   const contenedor = document.getElementById('productos-fetch');
   if (!contenedor) return;
@@ -132,7 +216,7 @@ async function cargarProductosConFetch() {
     if (!respuesta.ok) throw new Error('HTTP ' + respuesta.status);
     catalogoCompleto = await respuesta.json();
   } catch {
-    /* Respaldo: datos del array local */
+   
     catalogoCompleto = [
       { nombre: 'Laptop TechNova X1',  precio: 3499900, descripcion: 'Intel Core i7 13va gen, 16GB RAM DDR5, 512GB NVMe SSD.', categoria: 'Laptops',     badge: 'Nuevo'      },
       { nombre: 'Smartphone TN-S23',   precio: 2199900, descripcion: 'Pantalla AMOLED 6.5", cámara triple 108MP, 5000mAh.',    categoria: 'Smartphones', badge: 'Top ventas' },
@@ -146,11 +230,7 @@ async function cargarProductosConFetch() {
   renderizarWebComponents(catalogoCompleto, contenedor);
 }
 
-/**
- * Crea elementos <product-card> para cada producto.
- * @param {Array}       lista     - Productos a mostrar.
- * @param {HTMLElement} contenedor
- */
+
 function renderizarWebComponents(lista, contenedor) {
   contenedor.innerHTML = '';
   if (!lista.length) {
@@ -165,7 +245,7 @@ function renderizarWebComponents(lista, contenedor) {
     tarjeta.setAttribute('categoria',   p.categoria || '');
     tarjeta.setAttribute('badge',       p.badge     || '');
 
-    /* Escuchar el evento personalizado del Web Component */
+    
     tarjeta.addEventListener('agregar-producto', function(e) {
       agregarAlCarrito(e.detail.nombre);
     });
@@ -174,9 +254,7 @@ function renderizarWebComponents(lista, contenedor) {
   });
 }
 
-/* ── 5. Filtro de categorías ─────────────────────────── */
 
-/** Inicializa los botones de filtro de categoría. */
 function inicializarFiltros() {
   const chips      = document.querySelectorAll('.cat-chip');
   const contenedor = document.getElementById('productos-fetch');
@@ -196,17 +274,18 @@ function inicializarFiltros() {
   });
 }
 
-/* ── Inicialización ──────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async function() {
   verificarSesion();
 
-  /* cargarFragmentos viene de fragments-loader.js */
   await cargarFragmentos();
 
   vincularLogout();
+  vincularToggleTema('btn-tema');
+  vincularCarrito(); 
   mostrarUsuario();
 
   renderizarConTemplate(PRODUCTOS_DESTACADOS);
   await cargarProductosConFetch();
   inicializarFiltros();
+  sincronizarTemaCards();
 });

@@ -1,38 +1,151 @@
 .app-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    border-bottom: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 62px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--borde);
+  box-shadow: var(--shadow);
+  gap: 20px;
+}
+
+html.dark-mode .app-header {
+  background: rgba(10,8,5,.95);
 }
 
 .header-logo {
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--acento), var(--acento2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+.header-nav {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+  justify-content: center;
 }
 
 .header-nav a {
-    margin-left: 14px;
-    color: #000;
-    text-decoration: underline;
-    font-size: 13px;
+  font-size: 20px;
+  color: var(--texto-muted);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+}
+
+.header-nav a:hover {
+  color: var(--acento);
+  border-bottom-color: var(--acento);
 }
 
 .header-actions {
-    display: flex;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .header-actions button {
-    border: 1px solid #000;
-    background: #fff;
-    padding: 4px 10px;
-    font-size: 12px;
-    cursor: pointer;
+  background: var(--surface-2);
+  border: 1px solid var(--borde);
+  color: var(--texto-muted);
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .2s;
 }
 
 .header-actions button:hover {
-    background: #eee;
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+#btn-tema {
+  background: linear-gradient(135deg, var(--acento), var(--acento2));
+  color: var(--bg);
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+#btn-tema:hover { opacity: .85; color: var(--bg); }
+
+#btn-logout {
+  background: transparent;
+  border: 1px solid rgba(255,61,0,.3);
+  color: #ef4444;
+  font-weight: 600;
+}
+
+#btn-logout:hover {
+  background: rgba(255,61,0,.1);
+  border-color: var(--acento3);
+  color: var(--acento3);
+}
+
+#btn-carrito { position: relative; }
+
+#cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--acento3);
+  color: #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   opacity: 0;
+  transition: opacity .2s;
+}
+#cart-count.visible {
+  opacity: 1;
+}
+.app-header {
+  position: relative;
+  overflow: hidden;
+  height: 100px;
+}
+
+.hdr-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hdr-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,8,5,.65);
+  z-index: 1;
+}
+
+.app-header > *:not(.hdr-video):not(.hdr-overlay) {
+  position: relative;
+  z-index: 2;
 }

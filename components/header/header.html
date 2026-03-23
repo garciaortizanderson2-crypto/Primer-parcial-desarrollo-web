@@ -1,19 +1,34 @@
-<!-- components/header.html -->
-<header class="app-header">
-  <a href="index.html" class="header-logo">TechNova</a>
-  <a href="stylesHeader.css"></a>
-  <nav class="header-nav">
-    <a href="index.html">Inicio</a>
-    <a href="#productos">Productos</a>
-    <a href="#categorias">Categorías</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
+<a href="index.html" class="header-logo">TechNova</a>
+<video class="hdr-video" autoplay muted loop playsinline>
+  <source src="img/12233773_1920_1080_30fps.mp4" type="video/mp4">
+</video>
+<div class="hdr-overlay"></div>
 
-  <div class="header-actions">
-    <button type="button">Buscar</button>
-    <button type="button" id="btn-carrito">
-      Carrito (<span id="cart-count">0</span>)
-    </button>
-    <button type="button" id="btn-logout">Salir</button>
-  </div>
-</header>
+<nav class="header-nav">
+  <a href="index.html">Inicio</a>
+  <a href="#productos">Productos</a>
+  <a href="#categorias">Categorías</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<div class="header-actions">
+  <button type="button" id="btn-tema">🌙 Modo oscuro</button>
+  <button type="button" class="btn-buscar">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    Buscar
+  </button>
+  <button type="button" id="btn-carrito">
+  <span style="position:relative;display:inline-flex;align-items:center">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <path d="M16 10a4 4 0 01-8 0"/>
+    </svg>
+</button>
+  <button type="button" id="btn-logout">Salir</button>
+</div>

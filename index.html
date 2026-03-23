@@ -5,13 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TechNova — Tienda de Tecnología</title>
+  <script src="js/modo.js"></script>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="components/header/stylesHeader.css" />
+  <link rel="stylesheet" href="components/sidebar/stylesSideber.css" />
+  <link rel="stylesheet" href="components/footer/stylesFooter.css" />
+  <link rel="stylesheet" href="components/carrito/Carrito.css" />
+   
 </head>
 
 <body class="app-page">
 
   <!-- Fragmento: header cargado dinámicamente -->
-  <div id="app-header-slot"></div>
+  <header class="app-header" id="app-header-slot"></header>
 
   <div class="app-layout">
 
@@ -110,12 +116,14 @@
       </div>
     </div>
   </template>
+ 
 
 
   <!-- Scripts -->
   <script src="js/product-card.js"></script>
   <script src="js/fragments-loader.js"></script>
   <script src="js/main.js"></script>
+ <div id="app-carrito-slot"></div>
 
 </body>
 

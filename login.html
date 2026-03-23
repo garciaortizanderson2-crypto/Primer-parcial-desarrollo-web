@@ -6,9 +6,13 @@
   <title>TechNova — Iniciar sesión</title>
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/login.css" />
+  <script src="js/modo.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/login.css" />
 </head>
 <body class="login-page">
-
+   <button class="login-tema-btn" id="btn-tema-login">🌙 Modo oscuro</button>
   <div class="login-box">
 
     <span class="login-logo">TechNova</span>
@@ -57,5 +61,8 @@
   </div>
 
   <script src="js/login.js"></script>
+  <script>
+    vincularToggleTema('btn-tema-login');
+  </script>
 </body>
 </html>

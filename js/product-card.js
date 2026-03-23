@@ -1,16 +1,3 @@
-/**
- * js/product-card.js — TechNova
- *
- * Web Component personalizado: <product-card>
- * Encapsula su estructura y estilos usando Shadow DOM.
- *
- * Atributos:
- *   nombre      — nombre del producto
- *   precio      — precio numérico (COP)
- *   descripcion — descripción breve
- *   categoria   — categoría del producto
- *   badge       — etiqueta opcional (Nuevo, Oferta, etc.)
- */
 class ProductCard extends HTMLElement {
 
   static get observedAttributes() {
@@ -19,18 +6,12 @@ class ProductCard extends HTMLElement {
 
   constructor() {
     super();
-    /* Adjuntar Shadow DOM en modo abierto */
     this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback()        { this.render(); }
   attributeChangedCallback() { this.render(); }
 
-  /**
-   * Formatea un número como precio en pesos colombianos.
-   * @param {string|number} valor
-   * @returns {string}
-   */
   formatearPrecio(valor) {
     const num = parseFloat(valor);
     if (isNaN(num)) return valor;
@@ -50,61 +31,86 @@ class ProductCard extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>
-        /* Estilos encapsulados en Shadow DOM */
         :host { display: block; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         .card {
-          border: 1px solid #000;
+          background: #ffffff;
+          border: 1px solid rgba(180,100,20,.2);
+          border-radius: 12px;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
-          font-family: sans-serif;
+          font-family: 'Segoe UI', sans-serif;
           font-size: 14px;
-          color: #111;
+          color: #1a1008;
+          transition: all .2s;
+          box-shadow: 0 1px 3px rgba(0,0,0,.08);
+          height: 100%;
         }
 
-        .card:hover { outline: 2px solid #000; }
+        .card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 4px 24px rgba(232,93,0,.18);
+          border-color: rgba(232,93,0,.35);
+        }
 
         .card-top {
-          border-bottom: 1px solid #000;
-          background: #f5f5f5;
-          padding: 14px 10px;
+          background: linear-gradient(135deg, #fdf8f0, rgba(232,93,0,.04));
+          border-bottom: 1px solid rgba(180,100,20,.15);
+          padding: 18px 12px;
           text-align: center;
-          min-height: 80px;
+          min-height: 90px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 5px;
+          gap: 6px;
         }
 
-        .card-top strong { font-size: 13px; }
-        .card-top small  { font-size: 11px; color: #555; }
+        .card-top strong { font-size: 13px; font-weight: 700; color: #1a1008; }
+        .card-top small  { font-size: 11px; color: #8c7a6b; }
 
         .badge-lbl {
-          border: 1px solid #000;
+          background: linear-gradient(135deg, #e85d00, #f5a623);
+          color: #fff;
           font-size: 10px;
-          padding: 1px 6px;
+          font-weight: 700;
+          padding: 2px 8px;
+          border-radius: 20px;
+          border: none;
         }
 
         .wc-label {
-          border: 1px dashed #000;
+          background: rgba(232,93,0,.08);
+          border: 1px solid rgba(232,93,0,.25);
+          color: #e85d00;
           font-size: 9px;
+          font-weight: 700;
           text-transform: uppercase;
-          padding: 1px 5px;
+          padding: 2px 6px;
+          border-radius: 20px;
+          letter-spacing: .04em;
         }
 
         .card-body {
-          padding: 9px;
+          padding: 12px;
           display: flex;
           flex-direction: column;
           gap: 4px;
           flex: 1;
         }
 
-        .card-cat  { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
-        .card-name { font-size: 13px; font-weight: bold; }
-        .card-desc { font-size: 12px; color: #555; line-height: 1.4; flex: 1; }
+        .card-cat {
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: .05em;
+          color: #e85d00;
+        }
+
+        .card-name { font-size: 13px; font-weight: 700; color: #1a1008; }
+        .card-desc { font-size: 12px; color: #8c7a6b; line-height: 1.4; flex: 1; }
 
         .card-footer {
           display: flex;
@@ -112,22 +118,57 @@ class ProductCard extends HTMLElement {
           justify-content: space-between;
           margin-top: 8px;
           padding-top: 8px;
-          border-top: 1px solid #ccc;
+          border-top: 1px solid rgba(180,100,20,.1);
         }
 
-        .card-price { font-size: 13px; font-weight: bold; }
+        .card-price {
+          font-size: 14px;
+          font-weight: 900;
+          background: linear-gradient(90deg, #e85d00, #f5a623);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
 
         .btn-add {
-          border: 1px solid #000;
-          background: #fff;
-          padding: 4px 9px;
+          background: linear-gradient(135deg, #e85d00, #f5a623);
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          padding: 5px 11px;
           font-size: 11px;
+          font-weight: 700;
           cursor: pointer;
-          font-family: sans-serif;
+          font-family: 'Segoe UI', sans-serif;
+          transition: all .2s;
         }
 
-        .btn-add:hover { background: #000; color: #fff; }
-        .btn-add.added { background: #000; color: #fff; }
+        .btn-add:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 3px 10px rgba(232,93,0,.35);
+        }
+
+        .btn-add.added {
+          background: linear-gradient(135deg, #f5a623, #e85d00);
+        }
+
+        /* ── Modo oscuro ── */
+:host(.dark) .card {
+  background: #1a1208;
+  border-color: rgba(255,120,30,.15);
+  color: #f5f0e8;
+}
+
+:host(.dark) .card-top {
+  background: linear-gradient(135deg, #221a0e, rgba(255,107,26,.06));
+  border-bottom-color: rgba(255,120,30,.12);
+}
+
+:host(.dark) .card-top strong { color: #f5f0e8; }
+:host(.dark) .card-top small  { color: #8c7a6b; }
+:host(.dark) .card-name       { color: #f5f0e8; }
+:host(.dark) .card-desc       { color: #8c7a6b; }
+:host(.dark) .card-footer     { border-top-color: rgba(255,120,30,.1); }
       </style>
 
       <div class="card">
@@ -148,9 +189,7 @@ class ProductCard extends HTMLElement {
         </div>
       </div>`;
 
-    /* Evento del botón dentro del Shadow DOM */
     this.shadowRoot.querySelector('.btn-add').addEventListener('click', (e) => {
-      /* Disparar evento personalizado hacia el documento principal */
       this.dispatchEvent(new CustomEvent('agregar-producto', {
         bubbles: true,
         composed: true,

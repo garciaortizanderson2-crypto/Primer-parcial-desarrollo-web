@@ -1,22 +1,18 @@
-/* =====================================================
-   css/login.css — TechNova
-   Estilos de la pantalla de inicio de sesión.
-   ===================================================== */
-
 .login-page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 40px 12px;
-  background: #fff;
+  background: var(--bg);
 }
 
 .login-box {
-  border: 2px solid #000;
+  border: 2px solid var(--borde);
   padding: 24px;
   width: 100%;
   max-width: 360px;
+  background: var(--bg);
 }
 
 .login-logo {
@@ -24,12 +20,12 @@
   font-weight: bold;
   display: block;
   margin-bottom: 4px;
+  color: var(--acento);
 }
 
-.login-box h1   { font-size: 18px; margin-bottom: 4px; }
-.login-box > p  { font-size: 12px; color: #555; margin-bottom: 18px; }
+.login-box h1   { font-size: 18px; margin-bottom: 4px; color: var(--texto); }
+.login-box > p  { font-size: 12px; color: var(--texto-muted); margin-bottom: 18px; }
 
-/* ── Campos del formulario ── */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -41,18 +37,23 @@
   font-size: 11px;
   text-transform: uppercase;
   font-weight: bold;
+  color: var(--texto);
 }
 
 .form-input {
-  border: 1px solid #000;
+  border: 1px solid var(--borde);
   padding: 6px 8px;
   font-size: 13px;
   width: 100%;
   outline: none;
   font-family: sans-serif;
+  background: var(--bg-alt);
+  color: var(--texto);
 }
 
-.form-input:focus { outline: 2px solid #000; }
+.form-input:focus {
+  outline: 2px solid var(--acento);
+}
 
 .form-error {
   font-size: 11px;
@@ -60,24 +61,24 @@
   min-height: 14px;
 }
 
-/* ── Alerta global ── */
 .form-alert {
   font-size: 12px;
   padding: 6px 8px;
-  border: 1px solid #000;
+  border: 1px solid var(--borde);
   margin-bottom: 8px;
   display: none;
+  color: var(--texto);
+  background: var(--bg-alt);
 }
 
 .form-alert.show { display: block; }
 
-/* ── Botón de ingreso ── */
 .btn-login {
   width: 100%;
   padding: 8px;
-  border: 2px solid #000;
-  background: #000;
-  color: #fff;
+  border: 2px solid var(--borde);
+  background: var(--btn-bg);
+  color: var(--btn-color);
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
@@ -85,21 +86,41 @@
   font-family: sans-serif;
 }
 
-.btn-login:hover    { background: #333; }
+.btn-login:hover    { opacity: .85; }
 .btn-login:disabled { opacity: .5; cursor: not-allowed; }
 
-/* ── Hint de credenciales de demo ── */
 .login-hint {
   font-size: 11px;
-  color: #555;
+  color: var(--texto-muted);
   text-align: center;
   padding-top: 8px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--borde-soft);
 }
 
 .login-hint code {
   font-size: 11px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--borde-soft);
   padding: 0 4px;
-  background: #f5f5f5;
+  background: var(--bg-alt);
+  color: var(--acento);
+}
+
+/* Botón de tema en login */
+.login-tema-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: 1px solid var(--acento);
+  background: var(--bg);
+  color: var(--acento);
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: sans-serif;
+}
+
+.login-tema-btn:hover {
+  background: var(--acento);
+  color: #fff;
 }
